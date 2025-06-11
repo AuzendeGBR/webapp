@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de ML - Forescan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">Forescan</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Adicionar_casos.html">Adicionar Casos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Adicionar_evidencias.html">Adicionar Evidências</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Laudos.html">Laudos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gerenciar_usuarios.html">Gerenciar Usuários</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="Analise_ML.html">Análise de ML</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container my-4">
+        <h1 class="mb-4">Análise de Machine Learning</h1>
+        
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Predição de Crimes</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="formulario-predicao"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Gráficos de Machine Learning</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="mlChartsTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab" aria-controls="features" aria-selected="true">Importância das Features</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="false">Estatísticas de Casos</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="mlChartsTabContent">
+                            <div class="tab-pane fade show active" id="features" role="tabpanel" aria-labelledby="features-tab">
+                                <div class="chart-container mt-3">
+                                    <canvas id="grafico-features"></canvas>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <div class="chart-container">
+                                            <canvas id="grafico-tipo-crime"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <div class="chart-container">
+                                            <canvas id="grafico-local"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <div class="chart-container">
+                                            <canvas id="grafico-genero"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-3">
+        <div class="container text-center">
+            <p>&copy; 2025 Forescan - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/ml-charts.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Inicializar o formulário de predição
+            window.mlIntegration.criarFormularioPredição("formulario-predicao");
+            
+            // Lógica para carregar gráficos quando a aba é ativada
+            const featuresTab = document.getElementById("features-tab");
+            const statsTab = document.getElementById("stats-tab");
+
+            featuresTab.addEventListener("shown.bs.tab", function (event) {
+                window.mlIntegration.inicializarGraficoFeatures();
+            });
+
+            statsTab.addEventListener("shown.bs.tab", function (event) {
+                window.mlIntegration.inicializarGraficosEstatisticas();
+            });
+
+            // Ativar a primeira aba e carregar seu gráfico inicial
+            const firstTab = new bootstrap.Tab(featuresTab);
+            firstTab.show();
+        });
+    </script>
+</body>
+</html>
+
+
