@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+    <style>
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <header class="header_section">
@@ -33,6 +39,7 @@
         </nav>
     </header>
 
+
     <main class="container my-4">
         <h1 class="mb-4">Análise de Machine Learning</h1>
         
@@ -50,43 +57,43 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Importância das Features</h2>
+                        <h2>Gráficos de Machine Learning</h2>
                     </div>
                     <div class="card-body">
-                        <div id="grafico-features"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Casos por Tipo de Crime</h2>
-                    </div>
-                    <div class="card-body">
-                        <div id="grafico-tipo-crime"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Casos por Local</h2>
-                    </div>
-                    <div class="card-body">
-                        <div id="grafico-local"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Casos por Gênero da Vítima</h2>
-                    </div>
-                    <div class="card-body">
-                        <div id="grafico-genero"></div>
+                        <ul class="nav nav-tabs" id="mlChartsTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab" aria-controls="features" aria-selected="true">Importância das Features</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="false">Estatísticas de Casos</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="mlChartsTabContent">
+                            <div class="tab-pane fade show active" id="features" role="tabpanel" aria-labelledby="features-tab">
+                                <div class="chart-container mt-3">
+                                    <canvas id="grafico-features"></canvas>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <div class="chart-container">
+                                            <canvas id="grafico-tipo-crime"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <div class="chart-container">
+                                            <canvas id="grafico-local"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <div class="chart-container">
+                                            <canvas id="grafico-genero"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,6 +106,30 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/ml-charts.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Inicializar o formulário de predição
+            window.mlIntegration.criarFormularioPredição("formulario-predicao");
+            
+            // Lógica para carregar gráficos quando a aba é ativada
+            const featuresTab = document.getElementById("features-tab");
+            const statsTab = document.getElementById("stats-tab");
+
+            featuresTab.addEventListener("shown.bs.tab", function (event) {
+                window.mlIntegration.inicializarGraficoFeatures();
+            });
+
+            statsTab.addEventListener("shown.bs.tab", function (event) {
+                window.mlIntegration.inicializarGraficosEstatisticas();
+            });
+
+            // Ativar a primeira aba e carregar seu gráfico inicial
+            const firstTab = new bootstrap.Tab(featuresTab);
+            firstTab.show();
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/ml-integration.js"></script>
     <script>
@@ -115,4 +146,8 @@
 
 
     <script src="js/custom.js"></script>
+    </script>
+</body>
+</html>
+
 
