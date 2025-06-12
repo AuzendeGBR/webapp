@@ -539,11 +539,14 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${caso.tipoCrime || "N/A"}</td>
             <td>${caso.perito || "N/A"}</td>
             <td><span class="badge ${getStatusBadgeClass(caso.status)}">${caso.status || "N/A"}</span></td>
-            <td class="d-flex justify-content-center gap-              <a href=\"Laudos.html?id=${caso.id}\" class=\"btn btn-dark btn-sm action-btn\" title=\"Visualizar\"><i class=\"bi bi-eye-fill\"></i></a>
-              <a href=\"Adicionar_casos.html?id=${caso.id}\" class=\"btn btn-dark btn-sm action-btn\" title=\"Editar\"><i class=\"bi bi-pencil-fill\"></i></a>           <button class="btn btn-danger btn-sm action-btn" onclick="excluirCaso(\'${caso.id}\')" title="Excluir"><i class="bi bi-trash-fill"></i></button>
-              <button class="btn btn-info btn-sm action-btn" onclick="gerarPDF(\'${caso.id}\')" title="Gerar PDF"><i class="bi bi-file-earmark-pdf-fill"></i></button>
-              <a href="Adicionar_evidencias.html?casoId=${caso.id}" class="btn btn-success btn-sm action-btn" title="Gerenciar Evidências"><i class="bi bi-folder-plus"></i></a>
-            </td>
+ <td class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+  <a href="Laudos.html?id=${caso.id}" class="btn btn-dark btn-sm action-btn" title="Visualizar"><i class="bi bi-eye-fill"></i></a>
+  <a href="Adicionar_casos.html?id=${caso.id}" class="btn btn-dark btn-sm action-btn" title="Editar"><i class="bi bi-pencil-fill"></i></a>
+  <button class="btn btn-danger btn-sm action-btn" onclick="excluirCaso('${caso.id}')" title="Excluir"><i class="bi bi-trash-fill"></i></button>
+  <button class="btn btn-info btn-sm action-btn" onclick="gerarPDF('${caso.id}')" title="Gerar PDF"><i class="bi bi-file-earmark-pdf-fill"></i></button>
+  <a href="Adicionar_evidencias.html?casoId=${caso.id}" class="btn btn-success btn-sm action-btn" title="Gerenciar Evidências"><i class="bi bi-folder-plus"></i></a>
+</td>
+
           `;
           laudosTableBody.appendChild(row);
         });
@@ -1402,4 +1405,5 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarUsuarios();
   }
 });
+
 
